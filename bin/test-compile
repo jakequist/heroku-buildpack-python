@@ -2,6 +2,16 @@
 
 # Syntax sugar.
 BIN_DIR=$(cd "$(dirname "$0")" || return; pwd) # absolute path
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+if [ ! -f "${ENV_DIR}/APP_BASE" ]; then
+    echo "APP_BASE was not set. Aborting"
+    exit 1
+fi
+APP_BASE="$(cat "${ENV_DIR}/APP_BASE")"
+BUILD_DIR="$BUILD_DIR/$APP_BASE"
 
 # shellcheck source=bin/utils
 source "$BIN_DIR/utils"
@@ -10,4 +20,4 @@ source "$BIN_DIR/utils"
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
-DISABLE_COLLECTSTATIC=1 INSTALL_TEST=1 "$(dirname "${0:-}")/compile" "$1" "$2" "$3"
+DISABLE_COLLECTSTATIC=1 INSTALL_TEST=1 "$(dirname "${0:-}")/compile" "$BUILD_DIR" "$2" "$3"
