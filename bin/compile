@@ -158,6 +158,9 @@ export PIP_NO_PYTHON_VERSION_WARNING=1
 
 # Switch to the repo's context.
 cd "$BUILD_DIR"
+echo "Using build dir: $BUILD_DIR"
+pwd 
+ls 
 
 # The Cache
 # ---------
@@ -380,4 +383,4 @@ fi
 
 # Measure the size of the Python installation.
 # shellcheck disable=SC2119
-mmeasure 'python.size' "$(measure-size)"
+fcd mmeasure 'python.size' "$(measure-size)"
